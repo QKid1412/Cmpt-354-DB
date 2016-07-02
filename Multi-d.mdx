@@ -1,0 +1,40 @@
+--Asgn#5 Q3
+--Amber Qi
+
+
+--a)Return the internet sales amount for bike sales in the calendar year 2007.
+select [Date].[Calendar Year].[CY 2007] on columns,
+[Product].[Category].&[1] on rows
+from [Adventure Works]
+where [Measures].[Internet Sales Amount];
+
+--b)Return the reseller sales amount in Canada/France from 2005-2008
+select  {[Date].[Calendar Year].[CY 2008] : [Date].[Calendar Year].[CY 2005]} on columns,
+{[Sales Territory].[Sales Territory Country].&[Canada],[Sales Territory].[Sales Territory Country].&[France]} on rows
+from [Adventure Works]
+where [Measures].[Reseller Sales Amount];
+
+--c)Return the reseller sales amount for all calendar years for
+--  Product model names between Road Bottle Cage and Road-750
+select {[Date].[Calendar Year].[CY 2010] : [Date].[Calendar Year].[CY 2005]} on columns,
+{[Product].[Product Model Lines].[Model].&[Road Bottle Cage] : [Product].[Product Model Lines].[Model].&[Road-750]}on rows
+from [Adventure Works]
+where [Measures].[Reseller Sales Amount];
+
+--d)Return the internet sales amount of sales of clothing to customers 
+--  in Bellingham and Seattle CY 2007
+
+select crossjoin([Date].[Calendar Year].&[2007],[Product].[Category].&[3]) on columns,
+{[Customer].[City].&[Bellingham]&[WA],[Customer].[City].&[Seattle]&[WA]}on rows
+from [Adventure Works]
+where [Measures].[Internet Sales Amount];
+
+
+
+--e)Return the internet sales amount of sales of bikes to customers 
+--  by city where i.s.a>$270000
+select  [Product].[Category].&[1] on columns,
+filter([Customer].[City].[City], 
+([Measures].[Internet Sales Amount],[Product].[Category].&[1])>270000 ) on rows
+from [Adventure Works]
+where [Measures].[Internet Sales Amount];
