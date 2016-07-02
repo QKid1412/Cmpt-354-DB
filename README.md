@@ -1,5 +1,6 @@
 # Cmpt-354-DB
 Database assignment, Goal is to get familiar with MS SQL.
+
 Studied:
 
 1.Create, Drop, Alter tables. Add, Delete, Update records and constraints.
